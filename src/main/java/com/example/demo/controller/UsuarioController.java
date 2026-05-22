@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,12 +57,26 @@ public class UsuarioController {
     }
 
     @GetMapping()
-    public ResponseEntity<UsuarioDto> procurarPorId(@RequestParam Integer id) {
+    public ResponseEntity <UsuarioDto> procurarPorId(@RequestParam Integer id) {
 
         Usuario usuario = usuarioService.procurarPorId(id);
 
         UsuarioDto usuarioEncontrado = usuarioMapper.entityParaDto(usuario);
 
         return ResponseEntity.ok(usuarioEncontrado);
+    }
+
+    @PutMapping()
+    public ResponseEntity <UsuarioDto> atualizarUsuario(@RequestParam Integer id , 
+                                                        @RequestBody CriarUsuarioDto criarUsuarioDto) {
+
+        Usuario usuario = usuarioMapper.dtoParaEntity(criarUsuarioDto);
+
+        Usuario usuarioCriado = usuarioService.atualizarUsuario(id ,usuario);
+
+        UsuarioDto usuarioDto = usuarioMapper.entityParaDto(usuarioCriado);
+
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioDto);
+
     }
 }

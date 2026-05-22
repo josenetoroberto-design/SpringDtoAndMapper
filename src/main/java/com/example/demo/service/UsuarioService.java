@@ -38,4 +38,18 @@ public class UsuarioService {
             ));
     }
 
+    public Usuario atualizarUsuario(Integer id , Usuario usuario) {
+
+        Usuario usuarioAtual = usuarioRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Usuario não encontrado"
+            ));
+
+        usuarioAtual.setNome(usuario.getNome());
+        usuarioAtual.setEmail(usuario.getEmail());
+        usuarioAtual.setSenha(usuario.getSenha());
+
+        return usuarioRepository.save(usuarioAtual);
+    }
+
 }

@@ -52,4 +52,15 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioAtual);
     }
 
+    public void deletarPorId(Integer id) {
+
+        if (!usuarioRepository.existsById(id)) {
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Usuário não encontrado"
+            );
+        }
+
+        usuarioRepository.deleteById(id);
+    }
+
 }

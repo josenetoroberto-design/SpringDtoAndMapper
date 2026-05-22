@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.CriarUsuarioDto;
@@ -41,7 +42,7 @@ public class UsuarioController {
 
     }
 
-    @GetMapping
+    @GetMapping("/todos")
     public ResponseEntity <List<UsuarioDto>> listarTodos() {
 
         List <Usuario> usuarios = usuarioService.listarTodos();
@@ -52,5 +53,15 @@ public class UsuarioController {
 
         return ResponseEntity.ok(resposta);
 
+    }
+
+    @GetMapping()
+    public ResponseEntity<UsuarioDto> procurarPorId(@RequestParam Integer id) {
+
+        Usuario usuario = usuarioService.procurarPorId(id);
+
+        UsuarioDto usuarioEncontrado = usuarioMapper.entityParaDto(usuario);
+
+        return ResponseEntity.ok(usuarioEncontrado);
     }
 }

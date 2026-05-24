@@ -1,3 +1,3 @@
 # API para treino
-API feita para treinar uso de DTO e MAPPER
+API feita com o framework SpringBoot para treinar uso de DTO e MAPPER
 
